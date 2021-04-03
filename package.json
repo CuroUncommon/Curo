@@ -7,13 +7,11 @@
     "preview-https": "serve dist"
   },
   "dependencies": {
-    "@types/gapi": "^0.0.39",
-    "@types/gapi.auth2": "^0.0.54",
     "@vueuse/core": "^4.6.3",
     "@vueuse/head": "^0.5.1",
+    "firebase": "^8.3.2",
     "typeface-roboto": "^1.1.13",
     "v-wave": "^1.2.8",
-    "firebase": "^8.3.2",
     "vue": "^3.0.10",
     "vue-i18n": "^9.0.0",
     "vue-router": "^4.0.5"
@@ -22,6 +20,8 @@
     "@antfu/eslint-config": "^0.6.2",
     "@iconify/json": "^1.1.323",
     "@intlify/vite-plugin-vue-i18n": "^2.0.4",
+    "@types/gapi": "^0.0.39",
+    "@types/gapi.auth2": "^0.0.54",
     "@types/nprogress": "^0.2.0",
     "@typescript-eslint/eslint-plugin": "^4.20.0",
     "@vitejs/plugin-vue": "^1.2.1",
