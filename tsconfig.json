@@ -15,7 +15,9 @@
     "forceConsistentCasingInFileNames": true,
     "types": [
       "vite/client",
-      "vite-plugin-vue-layouts/client"
+      "vite-plugin-vue-layouts/client",
+      "gapi",
+      "gapi.auth2"
     ],
     "paths": {
       "~/*": ["src/*"]

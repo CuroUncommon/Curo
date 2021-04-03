@@ -7,8 +7,11 @@
     "preview-https": "serve dist"
   },
   "dependencies": {
+    "@types/gapi": "^0.0.39",
+    "@types/gapi.auth2": "^0.0.54",
     "@vueuse/core": "^4.6.3",
     "@vueuse/head": "^0.5.1",
+    "firebase": "^8.3.2",
     "vue": "^3.0.10",
     "vue-i18n": "^9.0.0",
     "vue-router": "^4.0.5"
