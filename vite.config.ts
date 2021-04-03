@@ -90,6 +90,7 @@ export default defineConfig({
     ],
     exclude: [
       'vue-demi',
+      'v-wave',
     ],
   },
 })

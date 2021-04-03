@@ -2,4 +2,9 @@ html,
 body,
 #app {
   @apply w-full h-full;
+  font-family: 'Roboto', sans-serif;
+}
+
+html.dark {
+  @apply bg-harmonydark-900 text-white;
 }

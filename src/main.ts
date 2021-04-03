@@ -4,6 +4,7 @@ import App from './App.vue'
 import 'virtual:windi.css'
 import 'virtual:windi-devtools'
 import './styles/main.css'
+import 'typeface-roboto/index.css'
 
 // https://github.com/antfu/vite-ssg
 export const createApp = ViteSSG(

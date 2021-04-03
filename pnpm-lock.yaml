@@ -1,6 +1,8 @@
 dependencies:
   '@vueuse/core': 4.6.3_vue@3.0.10
   '@vueuse/head': 0.5.1_vue@3.0.10
+  typeface-roboto: 1.1.13
+  v-wave: 1.2.8_vue@3.0.10
   vue: 3.0.10
   vue-i18n: 9.0.0_vue@3.0.10
   vue-router: 4.0.5_vue@3.0.10
@@ -5330,6 +5332,10 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==
+  /typeface-roboto/1.1.13:
+    dev: false
+    resolution:
+      integrity: sha512-YXvbd3a1QTREoD+FJoEkl0VQNJoEjewR2H11IjVv4bp6ahuIcw0yyw/3udC4vJkHw3T3cUh85FTg8eWef3pSaw==
   /typescript/4.2.3:
     dev: true
     engines:
@@ -5441,6 +5447,14 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
+  /v-wave/1.2.8_vue@3.0.10:
+    dependencies:
+      vue: 3.0.10
+    dev: false
+    peerDependencies:
+      vue: ^2.0.0 || ^3.0.0
+    resolution:
+      integrity: sha512-WSZh5yfYpW6peC+9G2Dp1DtUaGKuL/aKoM9W8W46Z5A16eCnSWKDo3xJxfVPoxCZ5GBGn5Noasb/fDmzx6gAPQ==
   /v8-compile-cache/2.3.0:
     dev: true
     resolution:
@@ -5973,7 +5987,9 @@ specifiers:
   eslint: ^7.23.0
   https-localhost: ^4.6.4
   pnpm: ^5.18.9
+  typeface-roboto: ^1.1.13
   typescript: ^4.2.3
+  v-wave: ^1.2.8
   vite: ^2.1.5
   vite-plugin-components: ^0.8.3
   vite-plugin-icons: ^0.4.0
