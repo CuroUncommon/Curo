@@ -1,8 +1,13 @@
 import { RouteRecordRaw } from 'vue-router'
+import Authvue from '~/pages/Auth/Auth.vue'
 
 export const appRoutes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: '/entry/serverselect',
+    redirect: '/auth',
+  },
+  {
+    path: '/auth',
+    component: Authvue,
   },
 ]
