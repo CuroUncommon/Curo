@@ -17,7 +17,8 @@
       "vite/client",
       "vite-plugin-vue-layouts/client",
       "gapi",
-      "gapi.auth2"
+      "gapi.auth2",
+      "gapi.client.calendar"
     ],
     "paths": {
       "~/*": ["src/*"]
