@@ -46,7 +46,7 @@ const onCellClicked = (day: number) => {
         <p
           v-for="(ev, d) in mappedEvents?.[day]"
           :key="d"
-          class="bg-blue-400 text-xs mb-0.5 p-1"
+          class="bg-blue-600 text-xs mb-0.5 p-1"
         >
           {{ ev.start.format('LT') }} - {{ ev.end.format('LT') }} - {{ ev.summary }}
         </p>

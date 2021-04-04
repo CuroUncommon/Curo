@@ -38,7 +38,7 @@ const refreshClick = async() => {
           <mdi-calendar-month class="mr-2" /> Month View
         </template>
       </h-dropdown>
-      <h-btn @click="updateGoals">
+      <h-btn variant="outlined" color="primary" class="mr-3 mb-4" @click="updateGoals">
         Update Goals
       </h-btn>
       <h-btn variant="outlined" color="primary" class="mr-3 mb-4" @click="newGoalMenuOpen = true">
