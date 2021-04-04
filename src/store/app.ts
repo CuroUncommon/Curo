@@ -1,6 +1,17 @@
 import { Dayjs } from 'dayjs'
+import { isClient } from '@vueuse/core'
 import { Store } from './store'
 import { IEvent } from '~/types'
+
+const localStorageSetItem = (key: string, value: string) => {
+  if (isClient)
+    localStorage.setItem(key, value)
+}
+
+const localStorageGetItem = (key: string) => {
+  if (isClient)
+    return localStorage.getItem(key)
+}
 
 export interface IGoal {
   totalTime: number // minutes
@@ -37,13 +48,13 @@ class AppStore extends Store<IAppState> {
 
   // eslint-disable-next-line no-restricted-globals
   setGoalCalendar(cal?: gapi.client.calendar.CalendarListEntry) {
-    localStorage.setItem('goalCal', JSON.stringify(cal))
+    localStorageSetItem('goalCal', JSON.stringify(cal))
     this.state.goalCalendar = cal
   }
 
   // eslint-disable-next-line no-restricted-globals
   setReadCalendar(cal?: gapi.client.calendar.CalendarListEntry) {
-    localStorage.setItem('readCal', JSON.stringify(cal))
+    localStorageSetItem('readCal', JSON.stringify(cal))
     this.state.readCalendar = cal
   }
 
@@ -56,7 +67,7 @@ class AppStore extends Store<IAppState> {
   }
 
   setGoals(goals: { [key: string]: IGoal }) {
-    localStorage.setItem('goals', JSON.stringify(goals))
+    localStorageSetItem('goals', JSON.stringify(goals))
     this.state.goals = goals
   }
 
@@ -85,9 +96,9 @@ class AppStore extends Store<IAppState> {
   }
 }
 
-const goalCal = localStorage.getItem('goalCal') || undefined
-const readCal = localStorage.getItem('readCal') || undefined
-const goals = localStorage.getItem('goals') || undefined
+const goalCal = localStorageGetItem('goalCal') || undefined
+const readCal = localStorageGetItem('readCal') || undefined
+const goals = localStorageGetItem('goals') || undefined
 
 export const appStore = new AppStore({
   calendars: [],
@@ -96,5 +107,6 @@ export const appStore = new AppStore({
   goals: goals ? JSON.parse(goals) : {},
 })
 
+if (isClient)
 // @ts-ignore
-window.appStore = appStore
+  window.appStore = appStore
