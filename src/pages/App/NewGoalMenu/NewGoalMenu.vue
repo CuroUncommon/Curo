@@ -22,7 +22,7 @@ const timePeriods = ['year', 'month', 'week']
     </p>
     <h-input label="Time for goal (minutes)" class="mb-4" type="number" />
     <p class="mb-2">
-      Over the course of:
+      Over the course of a:
     </p>
     <h-menu v-model="timePeriodMenuOpen">
       <template #activator="{toggle}">

@@ -10,7 +10,7 @@ export default defineConfig({
   theme: {
     extend: {
       colors: {
-        primary: colors.blue,
+        primary: colors.pink,
         secondary: colors.amber,
         harmonydark: {
           50: '#f5f5f6',
