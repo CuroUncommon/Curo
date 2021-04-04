@@ -7,6 +7,7 @@ import MonthView from '~/pages/App/CalendarView/MonthView.vue'
 import WeekView from '~/pages/App/CalendarView/WeekView.vue'
 import { appStore } from '~/store/app'
 import { getAllEvents } from '~/logic/gapi'
+import { updateGoals } from '~/logic/events'
 
 const now = dayjs().startOf('day')
 
@@ -37,6 +38,9 @@ const refreshClick = async() => {
           <mdi-calendar-month class="mr-2" /> Month View
         </template>
       </h-dropdown>
+      <h-btn @click="updateGoals">
+        Update Goals
+      </h-btn>
       <h-btn variant="outlined" color="primary" class="mr-3 mb-4" @click="newGoalMenuOpen = true">
         <mdi-plus class="mr-2" /> New Goal
       </h-btn>

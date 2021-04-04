@@ -22,7 +22,7 @@ interface IAppState {
   // eslint-disable-next-line no-restricted-globals
   goalEvents?: IEvent[]
   // eslint-disable-next-line no-restricted-globals
-  readEvents?: gapi.client.calendar.Event[]
+  userEvents?: gapi.client.calendar.Event[]
   // TODO: index by something else or just keep it as a list
   goals: {
     [key: string]: IGoal
@@ -52,7 +52,7 @@ class AppStore extends Store<IAppState> {
   }
 
   setUserEvents(ev?: gapi.client.calendar.Event[]) {
-    this.state.readEvents = ev
+    this.state.userEvents = ev
   }
 
   setGoals(goals: { [key: string]: IGoal }) {
@@ -81,7 +81,7 @@ class AppStore extends Store<IAppState> {
   }
 
   getUserEvents() {
-    return this.state.readEvents
+    return this.state.userEvents
   }
 }
 

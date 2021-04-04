@@ -21,7 +21,7 @@ const height = computed(() => endPercentDown.value - percentDown.value)
 const configOpen = ref(false)
 
 const onDeleteClick = () => {
-  deleteAllEventsByID(appStore.getGoalCal()!.id!, appStore.getGoals()[props.title].events)
+  deleteAllEventsByID(appStore.getGoalCal()!.id!, appStore.getGoals()[props.title].events.map(ev => ev.id))
 }
 </script>
 

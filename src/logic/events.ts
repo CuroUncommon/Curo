@@ -1,7 +1,7 @@
 import dayjs, { Dayjs } from 'dayjs'
 import { computed, watch, onMounted } from 'vue'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
-import { addEvent, getAllEvents, getGAPI } from './gapi'
+import { addEvent, getAllEvents, getEvents, getGAPI } from './gapi'
 import { appStore, IGoal } from '~/store/app'
 import { IEvent } from '~/types'
 dayjs.extend(isSameOrAfter)
@@ -55,7 +55,7 @@ export const applyForDay = async(
         ev.end.add(minBlockLength, 'minute'), events)
     ) continue
 
-    const freeTime = nextEventStartTime.diff(ev.end, 'minute') / (60 * 1000)
+    const freeTime = nextEventStartTime.diff(ev.end, 'minute')
     const remainingMinutesToSchdule = minutesToSchedule - minutesScheduled
 
     const scheduleTime = Math.min(Math.max(minBlockLength, freeTime), remainingMinutesToSchdule)
@@ -119,9 +119,7 @@ export const applyGoal = async(
 ) => {
   const batch = (await getGAPI()).client.newBatch()
   await applyGoalToBatch(calendarID, events, name, dayStart, timeForGoal, timePeriod, minBlockLength, batch)
-  console.log('batch', batch)
   const res = await batch
-  console.log('res', res)
   const goals = appStore.getGoals()
   const goal: IGoal = {
     totalTime: timeForGoal, // minutes
@@ -180,29 +178,65 @@ export const deleteAllEventsByID = async(calendar: string, ids: string[], batch?
   return await b
 }
 
+const sliceEvents = (events: IEvent[], end: Dayjs, start: Dayjs) => {
+  return events.filter((ev) => {
+    if (
+      isDateInRange(end, ev.start, ev.end) // event starts inside of the time range
+      || (ev.start.isSameOrAfter(start) && ev.start.isBefore(end)) // event ends in the time range
+      || (ev.start.isBefore(start) && ev.end.isAfter(end)) // (time range starts and ends inside event)
+      || (ev.start.isSame(start) && ev.end.isSame(end))
+    ) {
+      // console.log('event in time range: ev start: ', ev.start, ' ev end: ', ev.end, ' start: ', start, ' end: ', end)
+      return true
+    }
+    else {
+      return false
+    }
+  })
+}
+
 export const updateGoals = async() => {
   const gapi = await getGAPI()
   const batch = gapi.client.newBatch()
-
   // destroy it all
   const goals = appStore.getGoals()
   const goalCal = appStore.getGoalCal()
-  const events = appStore.getUserEvents()
-  if (!goalCal?.id || !goals || !events) return
+  const userCal = appStore.getUserCal()
+  // const events = await getAllEvents(appStore.getUserCal()?.id) // appStore.getUserEvents()
+  if (!goalCal?.id || !goals) return
   const allGoalIDs = Object.values(goals).flatMap(g => g.events.map(ev => ev.id))
-  deleteAllEventsByID(goalCal?.id, allGoalIDs)
+  deleteAllEventsByID(goalCal?.id, allGoalIDs, batch)
+
+  const userEvents: IEvent[] = await getAllEvents(userCal!.id!)
+  const goalEvents: IEvent[] = []
+
+  console.log(goals)
   // add it back in using algo
   for (const [name, goal] of Object.entries(goals)) {
-    applyGoalToBatch(
+    const dayStart = dayjs(goal.dayStart)
+    const slicedUserEvents = sliceEvents(userEvents, dayStart, dayStart.add(goal.timePeriod, 'days'))
+    const slicedGoalEvents = sliceEvents(goalEvents, dayStart, dayStart.add(goal.timePeriod, 'days'))
+
+    const events = slicedUserEvents?.concat(slicedGoalEvents!)
+      .filter(ev => !!ev.end && !!ev.start)
+      .sort((a, b) => {
+        const first = a.start!
+        const second = b.start!
+
+        if (first.isBefore(second)) return -1
+        if (first.isAfter(second)) return 1
+        return 0
+      })
+
+    console.log(events)
+    await applyGoal(
       goalCal.id,
-      events.map(ev => ({
-        summary: ev.summary || 'unknown summary',
-        start: dayjs(ev.start?.dateTime),
-        end: dayjs(ev.end?.dateTime),
-        id: ev.id || 'unkown id',
-      })),
-      name, goal.dayStart, goal.totalTime, goal.timePeriod, goal.minBlockTime, batch,
+      events,
+      name, dayStart, goal.totalTime, goal.timePeriod, goal.minBlockTime,
     )
+
+    goalEvents.push(...goal.events)
   }
-  return await batch
+  const res = await batch
+  console.log('res', res)
 }
