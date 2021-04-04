@@ -14,22 +14,22 @@ const userEmail = ref<string | undefined>(undefined)
 const userAvatar = ref<string | undefined>(undefined)
 const isSignedIn = ref<boolean | undefined>(undefined)
 
-function updateSignedInState(signedIn: boolean) {
+async function updateSignedInState(signedIn: boolean) {
   isSignedIn.value = signedIn
   if (signedIn) {
-    const profile = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile()
+    const profile = (await getGAPI()).auth2.getAuthInstance().currentUser.get().getBasicProfile()
     userEmail.value = profile.getEmail()
     userAvatar.value = profile.getImageUrl()
   }
   else { userEmail.value = undefined }
 }
 async function login() {
-  await gapi.auth2.getAuthInstance().signIn()
-  console.log('after', await gapi.auth2.getAuthInstance().isSignedIn.get())
+  await (await getGAPI()).auth2.getAuthInstance().signIn()
+  console.log('after', await (await getGAPI()).auth2.getAuthInstance().isSignedIn.get())
 }
 
 async function logout() {
-  await gapi.auth2.getAuthInstance().signOut()
+  await (await getGAPI()).auth2.getAuthInstance().signOut()
 }
 
 async function onContinueClick() {
@@ -37,9 +37,8 @@ async function onContinueClick() {
 }
 
 onMounted(async() => {
-  await getGAPI()
-  gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignedInState)
-  updateSignedInState(gapi.auth2.getAuthInstance().isSignedIn.get())
+  (await getGAPI()).auth2.getAuthInstance().isSignedIn.listen(updateSignedInState)
+  updateSignedInState((await getGAPI()).auth2.getAuthInstance().isSignedIn.get())
 })
 </script>
 <template>

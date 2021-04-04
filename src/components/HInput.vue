@@ -8,7 +8,7 @@ const props = defineProps<{
   label?: string
   name?: string
   type?: string
-  modelValue?: string
+  modelValue?: any
   focus?: boolean
   multiline?: boolean
   noBorder?: boolean

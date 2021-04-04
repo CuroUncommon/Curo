@@ -1,6 +1,7 @@
 dependencies:
   '@vueuse/core': 4.6.3_vue@3.0.10
   '@vueuse/head': 0.5.1_vue@3.0.10
+  dayjs: 1.10.4
   firebase: 8.3.2
   typeface-roboto: 1.1.13
   v-wave: 1.2.8_vue@3.0.10
@@ -2681,6 +2682,10 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-X5eWTSXO/BJmpdIKCRuKUgSCgAN0OwliVK3yPKbwIWU1Tdw5BRajxlzMidvh+gwko9AfQ9zIj52pzF91Q3YAvQ==
+  /dayjs/1.10.4:
+    dev: false
+    resolution:
+      integrity: sha512-RI/Hh4kqRc1UKLOAf/T5zdMMX5DQIlDxwUe3wSyMMnEbGunnpENCdbUgM+dW7kXidZqCttBrmw7BhN4TMddkCw==
   /debug/2.6.9:
     dependencies:
       ms: 2.0.0
@@ -6604,6 +6609,7 @@ specifiers:
   '@vueuse/core': ^4.6.3
   '@vueuse/head': ^0.5.1
   cross-env: ^7.0.3
+  dayjs: ^1.10.4
   eslint: ^7.23.0
   firebase: ^8.3.2
   https-localhost: ^4.6.4

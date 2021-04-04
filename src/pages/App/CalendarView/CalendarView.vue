@@ -20,7 +20,7 @@ const data = {}
 
 onMounted(async() => {
   await getGAPI()
-  console.log(await getEvents('primary'))
+  // console.log(await getEvents('primary'))
 })
 </script>
 

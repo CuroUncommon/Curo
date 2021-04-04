@@ -19,9 +19,9 @@ const buttonClasses = {
 }
 </script>
 <template>
-  <a v-wave :class="buttonClasses">
+  <button v-wave :class="buttonClasses">
     <slot />
-  </a>
+  </button>
 </template>
 
 <style lang="postcss" scoped>
