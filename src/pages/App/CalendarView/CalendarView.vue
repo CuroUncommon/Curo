@@ -13,8 +13,6 @@ const days = [
   'Sat',
 ]
 
-const data = {}
-
 </script>
 
 <template>

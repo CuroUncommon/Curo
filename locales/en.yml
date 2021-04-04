@@ -11,3 +11,7 @@ intro:
   hi: Hi, {name}!
   whats-your-name: What's your name?
 not-found: Not found
+time-period:
+  year: Year
+  month: Month
+  week: Week
