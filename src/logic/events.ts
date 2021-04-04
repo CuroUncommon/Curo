@@ -82,26 +82,28 @@ export const applyGoalToBatch = async(
   batch: gapi.client.Batch<any>,
 ) => {
   const timePerDay = timeForGoal / timePeriod
-  console.log(timePerDay)
+  console.log('events', events)
   let timeForGoalRemaining = timeForGoal
   for (let i = 0; i < timePeriod; i++) {
-    const numDaysRemaining = timePeriod - i
     const todaysEvents = [...events].filter((ev) => {
-      const shouldBe = dayStart.add(i, 'day')
+      const shouldBe = dayjs().add(i, 'day')
       const start = shouldBe.startOf('day')
       const end = shouldBe.endOf('day')
+      const eventStart = ev.start
+      const eventEnd = ev.end
       if (
-        isDateInRange(end, ev.start, ev.end) // event starts inside of the time range
-        || (ev.start.isSameOrAfter(start) && ev.start.isBefore(end)) // event ends in the time range
-        || (ev.start.isBefore(start) && ev.end.isAfter(end)) // (time range starts and ends inside event)
-        || (ev.start.isSame(start) && ev.end.isSame(end))
+        isDateInRange(eventEnd, start, end) // event starts inside of the time range
+        || isDateInRange(eventStart, start, end) // event ends in the time range
+        || (eventStart < start && eventEnd > end) // (time range starts and ends inside event)
       )
         return true
       else
         return false
     })
     const minutesToSchedule = Math.min(Math.max(minBlockLength, timePerDay), timeForGoalRemaining)
-    timeForGoalRemaining -= await applyForDay(calendarID, todaysEvents, dayjs(dayStart).add(i, 'day'), name, minutesToSchedule, minBlockLength, batch)
+    console.log('ith day: ', i)
+    console.log('todays events', todaysEvents)
+    timeForGoalRemaining -= await applyForDay(calendarID, todaysEvents, dayStart.add(i, 'day'), name, minutesToSchedule, minBlockLength, batch)
   }
 }
 
@@ -116,7 +118,7 @@ export const applyGoal = async(
   minBlockLength: number, // minutes
 ) => {
   const batch = (await getGAPI()).client.newBatch()
-  applyGoalToBatch(calendarID, events, name, dayStart, timeForGoal, timePeriod, minBlockLength, batch)
+  await applyGoalToBatch(calendarID, events, name, dayStart, timeForGoal, timePeriod, minBlockLength, batch)
   console.log('batch', batch)
   const res = await batch
   console.log('res', res)
