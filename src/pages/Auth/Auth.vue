@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 // import { auth } from "~/firebase";
-import { onMounted } from "vue";
-import { ref } from "vue";
+/* global gapi */
 
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import HBtn from '~/components/HBtn.vue'
 import CuroNavBar from '~/components/CuroNav.vue'
+import { getGAPI } from '~/logic/gapi'
 
 const router = useRouter()
 
@@ -37,6 +37,7 @@ async function onContinueClick() {
 }
 
 onMounted(async() => {
+  await getGAPI()
   gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignedInState)
   updateSignedInState(gapi.auth2.getAuthInstance().isSignedIn.get())
 })

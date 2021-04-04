@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { getEvents } from "~/getCalEvents";
 import { onMounted } from 'vue'
+import { getEvents } from '~/getCalEvents'
+import { getGAPI } from '~/logic/gapi'
 
 const today = new Date()
 
@@ -18,7 +19,8 @@ const days = [
 
 const data = {}
 
-onMounted(async () => {
+onMounted(async() => {
+  getGAPI()
   console.log(await getEvents('primary'))
 })
 </script>

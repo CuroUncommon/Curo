@@ -1,10 +1,9 @@
-async function getEvents(calendarId: string) {
+import { getGAPI } from './logic/gapi'
+
+export async function getEvents(calendarId: string) {
+  await getGAPI()
   const request = await gapi.client.calendar.events.list({
-    calendarId: calendarId
+    calendarId,
   })
   return request.result.items
-}
-
-export {
-  getEvents,
 }
