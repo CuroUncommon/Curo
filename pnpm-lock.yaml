@@ -13,6 +13,7 @@ devDependencies:
   '@intlify/vite-plugin-vue-i18n': 2.0.4_vite@2.1.5+vue-i18n@9.0.0
   '@types/gapi': 0.0.39
   '@types/gapi.auth2': 0.0.54
+  '@types/gapi.client.calendar': 3.0.10
   '@types/nprogress': 0.2.0
   '@typescript-eslint/eslint-plugin': 4.20.0_eslint@7.23.0+typescript@4.2.3
   '@vitejs/plugin-vue': 1.2.1_@vue+compiler-sfc@3.0.10
@@ -1485,6 +1486,12 @@ packages:
       vue-i18n: ^9.0.0
     resolution:
       integrity: sha512-Wumxwenjoo+Lors1q6pxovngLfjba9b5JM0FKWbgQxroBP0yJpdn9GNrs0+WZp+hHqqUAtYvTfOPCovymySFxw==
+  /@maxim_mazurok/gapi.client.calendar/3.0.20210329:
+    dependencies:
+      '@types/gapi.client': 1.0.4
+    dev: true
+    resolution:
+      integrity: sha512-c4TpvTYbabqTbkQBozZEoVNDctEDFhhewZuiZe6/BpY8oqqu6VdpTaERs5bFTV7WLNEGUXn9ebhC6hPgmGjLiA==
   /@nodelib/fs.scandir/2.1.4:
     dependencies:
       '@nodelib/fs.stat': 2.0.4
@@ -1637,6 +1644,16 @@ packages:
     dev: true
     resolution:
       integrity: sha512-4HEphaKsGndb9+tnd2PBBmxloaij04iYXVsjgHpFxqbPFt5Le6pasoh5g5BEtwp/YEm9xDbzssp44BYR2/7RcQ==
+  /@types/gapi.client.calendar/3.0.10:
+    dependencies:
+      '@maxim_mazurok/gapi.client.calendar': 3.0.20210329
+    dev: true
+    resolution:
+      integrity: sha512-NUStEVbHPOhFsw4cWE2CThe5eKpTlmz+fSu8mvEc7j+IDVNgk1kS4C6hZzBCdlIjFfOzdQM3Cyqkt5kt7ze3kA==
+  /@types/gapi.client/1.0.4:
+    dev: true
+    resolution:
+      integrity: sha512-MVC0ukq+bVfmQnrkaJdyFBJVuQ7W9QtqH4aGqQaEmLBj/fwsbQ7IMk8M6q2LffEoKlYBuJNpGz4nTnckthoIpg==
   /@types/gapi/0.0.39:
     dev: true
     resolution:
@@ -6578,6 +6595,7 @@ specifiers:
   '@intlify/vite-plugin-vue-i18n': ^2.0.4
   '@types/gapi': ^0.0.39
   '@types/gapi.auth2': ^0.0.54
+  '@types/gapi.client.calendar': ^3.0.10
   '@types/nprogress': ^0.2.0
   '@typescript-eslint/eslint-plugin': ^4.20.0
   '@vitejs/plugin-vue': ^1.2.1

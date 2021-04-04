@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-/* global gapi */
+// import { auth } from "~/firebase";
+import { onMounted } from "vue";
+import { ref } from "vue";
 
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -11,21 +13,6 @@ const router = useRouter()
 const userEmail = ref<string | undefined>(undefined)
 const userAvatar = ref<string | undefined>(undefined)
 const isSignedIn = ref<boolean | undefined>(undefined)
-
-async function initClient() {
-  await new Promise((resolve) => {
-    gapi.load('client', resolve)
-  })
-  await gapi.client.init({
-    apiKey: 'AIzaSyBnQXDP5hR8tbxyFKCP_cUnzN4wKGhFfI8',
-    clientId:
-        '869858699920-6pgeenk8pbg6lf0mn4kpjmqde87uoeae.apps.googleusercontent.com',
-    discoveryDocs: [
-      'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
-    ],
-    scope: 'https://www.googleapis.com/auth/calendar',
-  })
-}
 
 function updateSignedInState(signedIn: boolean) {
   isSignedIn.value = signedIn
@@ -50,7 +37,6 @@ async function onContinueClick() {
 }
 
 onMounted(async() => {
-  await initClient()
   gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignedInState)
   updateSignedInState(gapi.auth2.getAuthInstance().isSignedIn.get())
 })

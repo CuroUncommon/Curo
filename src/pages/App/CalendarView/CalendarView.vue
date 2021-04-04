@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import { getEvents } from "~/getCalEvents";
+import { onMounted } from 'vue'
+
 const today = new Date()
 
 const numDays = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate()
@@ -13,6 +16,11 @@ const days = [
   'Sat',
 ]
 
+const data = {}
+
+onMounted(async () => {
+  console.log(await getEvents('primary'))
+})
 </script>
 
 <template>
