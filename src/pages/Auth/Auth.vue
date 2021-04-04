@@ -45,16 +45,16 @@ onMounted(async() => {
   <div class="flex flex-col h-full w-full">
     <curo-nav-bar />
     <div class="flex flex-1 items-center justify-center background">
-      <div class="bg-gray-100 shadow-lg text-center ml-4 p-4 w-1/5 dark:bg-harmonydark-800">
+      <div class="bg-gray-100 shadow-lg text-center ml-4 p-4 dark:bg-harmonydark-800">
         <template v-if="isSignedIn">
           <h1 class="text-xl mb-4">
             Continue as <strong>{{ userEmail }}</strong>?
           </h1>
           <img :src="userAvatar" class="rounded-full mx-auto mb-4" />
-          <h-btn variant="filled" color="primary" class="mb-2" @click="onContinueClick">
+          <h-btn variant="filled" color="primary" class="mb-2 w-full" @click="onContinueClick">
             Continue
           </h-btn>
-          <h-btn variant="text" @click="logout">
+          <h-btn variant="text" class="w-full" @click="logout">
             Sign Out
           </h-btn>
         </template>
@@ -65,7 +65,7 @@ onMounted(async() => {
           <p class="text-sm mb-4 text-gray-500 dark:text-gray-400">
             Sign in with Google to gain access to Curo's time management tool
           </p>
-          <h-btn variant="filled" color="primary" class="mb-2" @click="login">
+          <h-btn variant="filled" color="primary" class="mb-2 w-full" @click="login">
             Sign In
           </h-btn>
         </template>

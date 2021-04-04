@@ -1,3 +1,6 @@
+import dayjs, { Dayjs } from 'dayjs'
+import { IEvent } from '~/types'
+
 let loaded = false
 // eslint-disable-next-line no-restricted-globals
 let gapiPromise: Promise<typeof gapi> | undefined
@@ -23,7 +26,7 @@ export const getGAPI = async() => {
 }
 /* eslint-enable no-restricted-globals */
 
-export const getEvents = async(calendarId: string, start: Date, end: Date) => {
+export const getEvents = async(calendarId: string, start: Dayjs, end: Dayjs) => {
   const startDateTime = start.toISOString()
   const endDateTime = end.toISOString()
   const request = await (await getGAPI()).client.calendar.events.list({
@@ -36,10 +39,31 @@ export const getEvents = async(calendarId: string, start: Date, end: Date) => {
   return request.result.items
 }
 
-export const addEvent = async(calendarId: string, title: string, start: Date, end: Date) => {
+export const getAllEvents = async(calendarId: string) => {
+  console.log('Getting all events...')
+  const request = await (await getGAPI()).client.calendar.events.list({
+    calendarId,
+    orderBy: 'startTime',
+    singleEvents: true,
+  })
+  return request.result.items?.map<IEvent>(ev => ({
+    summary: ev.summary || 'unknown summary',
+    start: dayjs(ev.start?.dateTime),
+    end: dayjs(ev.end?.dateTime),
+    id: ev.id || 'unknown id',
+  }))
+}
+
+export const getCalendars = async() => {
+  console.log('getting calendars!')
+  const request = await (await getGAPI()).client.calendar.calendarList.list()
+  return request.result.items
+}
+
+export const addEvent = async(calendarId: string, title: string, start: Dayjs, end: Dayjs, batch?: gapi.client.Batch<any>) => {
   const startDateTime = start.toISOString()
   const endDateTime = end.toISOString()
-  return (await getGAPI()).client.calendar.events.insert({
+  const req = (await getGAPI()).client.calendar.events.insert({
     calendarId,
     resource: {
       summary: title,
@@ -51,4 +75,9 @@ export const addEvent = async(calendarId: string, title: string, start: Date, en
       },
     },
   })
+  if (batch)
+    batch.add(req)
+
+  else
+    return req
 }

@@ -9,6 +9,7 @@ import { computed, nextTick, ref, defineProps, defineEmit } from 'vue'
 
 const props = defineProps<{
   modelValue: boolean
+  closeOnClick?: boolean
 }>()
 const emit = defineEmit(['update:modelValue'])
 
@@ -33,7 +34,7 @@ function updateMenuPos() {
   elWidth.value = activatorBbox.width
   // we want a slight offset (12) to make menus look nicer when on the edge
   x.value = Math.max(
-    activatorBbox.x - +activatorBbox.width,
+    activatorBbox.x,
     12,
   )
   y.value = Math.max(activatorBbox.y + activatorBbox.height, 0)
@@ -64,6 +65,11 @@ const menuStyle = computed(() => {
     width: `${elWidth.value}px`,
   }
 })
+
+const onMenuClick = () => {
+  if (props.closeOnClick)
+    open.value = false
+}
 </script>
 
 <template>
@@ -76,6 +82,7 @@ const menuStyle = computed(() => {
         class="z-50 fixed"
         :style="menuStyle"
         v-bind="$attrs"
+        @click="onMenuClick"
       >
         <slot />
       </div>

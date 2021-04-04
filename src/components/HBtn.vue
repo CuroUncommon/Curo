@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { computed, defineProps } from 'vue'
 
-const { variant, color, icon, raised, dense } = defineProps<{
+const props = defineProps<{
   variant: 'text' | 'filled' | 'outlined'
   color?: 'primary' | 'secondary'
   icon?: boolean
@@ -9,14 +9,16 @@ const { variant, color, icon, raised, dense } = defineProps<{
   dense?: boolean
 }>()
 
-const buttonClasses = {
+const buttonClasses = computed(() => ({
   btn: true,
-  [variant]: true,
-  [color || 'plain']: true,
-  icon,
-  raised,
-  dense,
-}
+  text: props.variant === 'text',
+  filled: props.variant === 'filled',
+  outlined: props.variant === 'outlined',
+  [props.color || 'plain']: true,
+  icon: props.icon,
+  raised: props.raised,
+  dense: props.dense,
+}))
 </script>
 <template>
   <button v-wave :class="buttonClasses">

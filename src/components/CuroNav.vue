@@ -12,5 +12,6 @@ import HBtn from '~/components/HBtn.vue'
     <h-btn variant="text" icon @click="toggleDark">
       <mdi-theme-light-dark />
     </h-btn>
+    <slot />
   </div>
 </template>
