@@ -45,7 +45,7 @@ const refreshClick = async() => {
         <mdi-plus class="mr-2" /> New Goal
       </h-btn>
       <h-btn variant="outlined" color="primary" class="mb-4" @click="refreshClick">
-        <mdi-refresh v-if="!refreshing" class="mr-2" /> {{ refreshing ? 'Refreshing...' : 'Refresh' }}
+        {{ refreshing ? 'Refreshing...' : 'Refresh' }}
       </h-btn>
     </div>
     <month-view v-if="range === 'month'" v-model="selected" :num-days="numDays" :today="today" />
